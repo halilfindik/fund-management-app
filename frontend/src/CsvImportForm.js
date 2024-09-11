@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { TextField, Button, Box, Typography } from '@mui/material';
 import axios from 'axios';
 
 const CsvImportForm = () => {
@@ -6,7 +7,7 @@ const CsvImportForm = () => {
   const [message, setMessage] = useState('');
 
   const handleFileChange = (e) => {
-    console.log('File selected:', e.target.files[0]);
+    console.log('Dosya seçildi:', e.target.files[0]);
     setFile(e.target.files[0]);
   };
 
@@ -14,15 +15,15 @@ const CsvImportForm = () => {
     e.preventDefault();
 
     if (!file) {
-        console.log("Dosya secilmedi");
-        setMessage('Please select a file first.');
+        console.log("Dosya seçilmedi.");
+        setMessage('Lütfen bir dosya seçiniz.');
         return;
       }  
 
     const formData = new FormData();
     formData.append('csvFile', file);
 
-    console.log('Form data is being submitted:', formData);
+    console.log('Form verisi yüklendi:', formData);
 
     axios.post('http://localhost:5000/api/upload-csv', formData, {
       headers: {
@@ -30,22 +31,46 @@ const CsvImportForm = () => {
       }
     })
       .then(response => {
-        console.log('Response from server:', response.data);
-        alert('CSV uploaded and processed successfully');
+        console.log('Server yanıtı:', response.data);
+        alert('CSV yüklendi ve başarılı bir şekilde işlendi.');
       })
       .catch(error => {
-        console.error('Error uploading CSV:', error);
-        setMessage('Error uploading CSV');
+        console.error('CSV yükleme hatası:', error);
+        setMessage('CSV yükleme hatası');
       });
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>Upload CSV for Daily Fund Prices:</label>
-      <input type="file" accept=".csv" onChange={handleFileChange} />
-      <button type="submit">Upload</button>
-      {message && <p>{message}</p>}
-    </form>
+    <Box sx={{ maxWidth: 400, mx: 'auto', mt: 4, p: 3, border: '1px solid #cddd', borderRadius: 2 }}>
+      <Typography variant="h5" gutterBottom align="center">CSV Yükleme Formu</Typography>
+      <form onSubmit={handleSubmit}>
+        <Button
+          variant="contained"
+          component="label"
+          color="primary"
+          fullWidth
+          sx={{ mb: 2 }}
+        >
+          Dosya Seç 
+          <input type="file" accept=".csv" hidden onChange={handleFileChange} />
+        </Button>
+
+        <Button
+          type="submit"
+          variant="contained"
+          color="secondary"
+          fullWidth
+        >
+          CSV Yükle
+        </Button>
+
+        {message && (
+          <Typography variant="body2" color={message.includes('Error') ? 'error' : 'success'} sx={{ mt: 2 }}>
+            {message}
+          </Typography>
+        )}
+      </form>
+    </Box>
   );
 };
 
