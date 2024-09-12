@@ -42,12 +42,12 @@ const CsvImportForm = () => {
 
   return (
     <Box sx={{ maxWidth: 400, mx: 'auto', mt: 4, p: 3, border: '1px solid #cddd', borderRadius: 2 }}>
-      <Typography variant="h5" gutterBottom align="center">CSV Yükleme Formu</Typography>
+      <Typography variant="h5" gutterBottom align="center">Fon Fiyatları Yükleme</Typography>
       <form onSubmit={handleSubmit}>
         <Button
           variant="contained"
           component="label"
-          color="primary"
+          color="secondary"
           fullWidth
           sx={{ mb: 2 }}
         >
@@ -58,7 +58,7 @@ const CsvImportForm = () => {
         <Button
           type="submit"
           variant="contained"
-          color="secondary"
+          color="primary"
           fullWidth
         >
           CSV Yükle

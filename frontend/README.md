@@ -1,3 +1,36 @@
+# MySQL Workbench
+
+MySQL Workbench is a free, open-source tool that allows you to visually design, model, generate
+
+### node index.js
+
+## Create a database in MySQL Workbench
+    -- Table for storing fund prices (fund_code and date are unique, so entries rows are not allowed; one entry for ever fund per day)
+CREATE TABLE fund_prices (   id INT AUTO_INCREMENT PRIMARY KEY,   fund_code VARCHAR(3),   date DATE,    price DECIMAL(10, 6) );
+
+ALTER TABLE fund_prices
+    ADD constraint unique_date UNIQUE(fund_code, DATE);
+
+    -- Table for storing transactions
+CREATE TABLE transactions (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    fund_code VARCHAR(10),
+    transaction_type ENUM('buy', 'sell'),
+    transaction_date DATE,
+    nominal_quantity DECIMAL(10, 2),
+    price DECIMAL(10, 2),
+    amount DECIMAL(10, 2)
+);
+
+    -- Clear data fund prices table (for testing purposes)
+TRUNCATE table fund_prices;
+
+    -- Various table queries (for testing purposes)
+SELECT * FROM fund_prices;
+DELETE FROM fund_prices WHERE fund_code='RPU';
+SELECT * FROM transactions;
+SELECT * FROM fund_prices;
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

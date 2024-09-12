@@ -96,7 +96,7 @@ const TransactionForm = () => {
   return (
     <Container component="main" maxWidth="xs">
             <CssBaseline />
-            <Box sx={{ marginTop: 8, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <Box sx={{ marginTop: 4, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <img src={logo} alt="Logo" style={{ width: '200px', marginBottom: '20px' }} />              
               <Typography variant="h5" gutterBottom align="center">Fund Transaction Form</Typography>
 

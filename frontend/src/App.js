@@ -4,14 +4,15 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import TransactionForm from './TransactionForm';
 import CsvImportForm from './CsvImportForm';
+import Transactions from './Transactions';
 
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#1d3557', // Change this to your preferred primary color
+      main: '#0D3B66', // Change this to your preferred primary color
     },
     secondary: {
-      main: '#f1faee', // Change this to your preferred secondary color
+      main: '#BCD3F2', // Change this to your preferred secondary color (6290C8)
     },
   },
   typography: {
@@ -43,32 +44,23 @@ const theme = createTheme({
 });
 
 function App() {
-  const [transactions, setTransactions] = useState([]);
+  const [setTransactions] = useState([]);
 
   useEffect(() => {
     axios.get('http://localhost:5000/api/transactions')
       .then(response => setTransactions(response.data))
       .catch(error => console.error('Error fetching data:', error));
-  }, []);
+  }, );
 
   return (
-    <div>
       <ThemeProvider theme={theme}>
       <CssBaseline /> {/* Normalize browser styles */}
       <div>
         <TransactionForm /> {/* The form component */}
+        <CsvImportForm />    {/* CSV upload form */}
+        <Transactions />     {/* Transactions table */}
       </div>
     </ThemeProvider>
-      <h1>Gerçekleşmiş İşlemler</h1>
-      <ul>
-        {transactions.map(transaction => (
-          <li key={transaction.id}>
-            {transaction.transaction_date} - {transaction.fund_code} - {transaction.transaction_type} - {transaction.amount} - {transaction.price}
-          </li>
-        ))}
-      </ul>
-      <CsvImportForm />
-    </div>
     
   );
 }
